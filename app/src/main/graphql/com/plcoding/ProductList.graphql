@@ -1,0 +1,27 @@
+query ProductList {
+    productos {
+        data{
+            id
+            attributes{
+                titulo
+                precio
+                descuento
+                destacado
+                imgPrincipal{
+                    data{
+                        attributes{
+                            url
+                        }
+                    }
+                }
+            }
+        }
+        meta{
+            pagination{
+                pageSize
+                total
+                pageCount
+            }
+        }
+    }
+}

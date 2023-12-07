@@ -1,0 +1,11 @@
+query Product($code: ID!){
+    producto(id: $code){
+        data {
+            attributes {
+                titulo
+                precio
+            }
+        }
+
+    }
+}
