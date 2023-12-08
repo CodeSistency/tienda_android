@@ -1,7 +1,7 @@
 package com.plcoding.graphqlcountriesapp.domain.useCases
 
 import android.util.Log
-import com.plcoding.graphqlcountriesapp.domain.Product
+import com.plcoding.graphqlcountriesapp.domain.model.products.Product
 import com.plcoding.graphqlcountriesapp.domain.ProductClient
 
 class GetProductsUseCase(

@@ -1,0 +1,16 @@
+query CategoryList {
+    categorias {
+        data{
+            attributes{
+                titulo
+                img{
+                    data{
+                        attributes{
+                            url
+                        }
+                    }
+                }
+            }
+        }
+    }
+}

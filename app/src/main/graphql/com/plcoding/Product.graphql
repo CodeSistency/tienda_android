@@ -1,11 +1,37 @@
 query Product($code: ID!){
     producto(id: $code){
-        data {
-            attributes {
+        data{
+            id
+            attributes{
                 titulo
+                description
                 precio
+                categoria
+                destacado
+                imgPrincipal{
+                    data{
+                        attributes{
+                            url
+                        }
+                    }
+                }
+                imgs{
+                    data{
+                        attributes{
+                            url
+                        }
+                    }
+                }
+                tallas{
+                    id
+                    talla
+                    color{
+                        color
+                        stock
+                        color_escrito
+                    }
+                }
             }
         }
-
     }
 }

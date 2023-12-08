@@ -1,0 +1,17 @@
+query SliderList {
+    sliderInicios{
+        data{
+            attributes{
+                titulo
+                button
+                img{
+                    data{
+                        attributes{
+                            url
+                        }
+                    }
+                }
+            }
+        }
+    }
+}

@@ -1,0 +1,17 @@
+query SectionList {
+    seccions{
+        data{
+            attributes{
+                titulo
+                url
+                img{
+                    data{
+                        attributes{
+                            url
+                        }
+                    }
+                }
+            }
+        }
+    }
+}

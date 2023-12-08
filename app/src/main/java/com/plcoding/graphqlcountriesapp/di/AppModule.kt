@@ -5,8 +5,11 @@ import com.apollographql.apollo3.ApolloClient
 import com.apollographql.apollo3.network.okHttpClient
 import com.plcoding.graphqlcountriesapp.data.ApolloProductsClient
 import com.plcoding.graphqlcountriesapp.domain.ProductClient
+import com.plcoding.graphqlcountriesapp.domain.useCases.GetCategoriesUseCase
 import com.plcoding.graphqlcountriesapp.domain.useCases.GetProductUseCase
 import com.plcoding.graphqlcountriesapp.domain.useCases.GetProductsUseCase
+import com.plcoding.graphqlcountriesapp.domain.useCases.GetSectionsUseCase
+import com.plcoding.graphqlcountriesapp.domain.useCases.GetSliderUseCase
 import dagger.Module
 import dagger.Provides
 import dagger.hilt.InstallIn
@@ -58,12 +61,27 @@ object AppModule {
     }
     @Provides
     @Singleton
-    fun provideGetCountriesUseCase(productClient: ProductClient): GetProductsUseCase {
+    fun provideGetProductsUseCase(productClient: ProductClient): GetProductsUseCase {
         return GetProductsUseCase(productClient)
     }
     @Provides
     @Singleton
-    fun provideGetCountryUseCase(productClient: ProductClient): GetProductUseCase {
+    fun provideGetProductUseCase(productClient: ProductClient): GetProductUseCase {
         return GetProductUseCase(productClient)
+    }
+    @Provides
+    @Singleton
+    fun provideGetCategoriesUseCase(productClient: ProductClient): GetCategoriesUseCase {
+        return GetCategoriesUseCase(productClient)
+    }
+    @Provides
+    @Singleton
+    fun provideGetSliderUseCase(productClient: ProductClient): GetSliderUseCase {
+        return GetSliderUseCase(productClient)
+    }
+    @Provides
+    @Singleton
+    fun provideGetSectionsUseCase(productClient: ProductClient): GetSectionsUseCase {
+        return GetSectionsUseCase(productClient)
     }
 }
