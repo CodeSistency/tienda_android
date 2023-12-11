@@ -21,7 +21,7 @@ import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.unit.dp
 import androidx.navigation.NavHostController
 import com.plcoding.graphqlcountriesapp.presentation.ProductsViewModel
-import com.plcoding.graphqlprep.R
+import com.plcoding.graphqlcountriesapp.R
 
 @SuppressLint("UnusedMaterialScaffoldPaddingParameter")
 @Composable
@@ -36,7 +36,7 @@ fun Home(navController: NavHostController, viewModel: ProductsViewModel) {
     ) {
         Box(modifier = Modifier){
             Column {
-
+                Categories()
             }
         }
     }
@@ -48,7 +48,9 @@ fun BottomBarContent(navController: NavHostController) {
         Row(
             verticalAlignment = Alignment.CenterVertically,
             horizontalArrangement = Arrangement.SpaceBetween,
-            modifier = Modifier.fillMaxWidth().padding(5.dp)
+            modifier = Modifier
+                .fillMaxWidth()
+                .padding(5.dp)
         ) {
             //Icon 1
             Column(
@@ -88,7 +90,9 @@ fun TopBarContent(navController: NavHostController) {
             Row(
                 verticalAlignment = Alignment.CenterVertically,
                 horizontalArrangement = Arrangement.SpaceBetween,
-                modifier = Modifier.fillMaxWidth().padding(5.dp)
+                modifier = Modifier
+                    .fillMaxWidth()
+                    .padding(5.dp)
             ) {
                 IconButton(onClick = { /*TODO*/ }) {
                     Icon(painterResource(id = R.drawable.ic_cart), contentDescription = null)

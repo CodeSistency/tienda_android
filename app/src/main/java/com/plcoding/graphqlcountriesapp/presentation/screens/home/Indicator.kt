@@ -21,7 +21,7 @@ fun WormPageIndicator(
     currentPage: Int,
     modifier: Modifier = Modifier,
     indicatorSize: Dp = 6.dp,
-    color: Color = Color.White,
+    color: Color = Color.Gray,
     spacing: Dp = indicatorSize,
     selectedMultiplier: Int = 3
 ) {
