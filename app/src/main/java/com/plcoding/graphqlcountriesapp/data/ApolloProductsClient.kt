@@ -1,5 +1,6 @@
 package com.plcoding.graphqlcountriesapp.data
 
+import android.util.Log
 import com.apollographql.apollo3.ApolloClient
 import com.plcoding.CategoryListQuery
 import com.plcoding.ProductListQuery
@@ -23,21 +24,34 @@ class ApolloProductsClient(
             .execute()
             .data
             ?.productos
-            ?.data?.map {
-                it.attributes!!.toProduct()
+            ?.data?.flatMap { product ->
+                val id = product.id ?: ""
+                product.attributes?.toProduct(id)?.let { listOf(it) } ?: emptyList()
             } ?: emptyList()
-
     }
 
-    override suspend fun getProduct(code: String): ProductDetail? {
-        return apolloClient
-            .query(ProductQuery(code))
-            .execute()
-            .data
-            ?.producto
-            ?.data
-            ?.attributes?.toDetailProduct()
-    }
+
+//    override suspend fun getProduct(code: String): ProductDetail? {
+//        return apolloClient
+//            .query(ProductQuery(code))
+//            .execute()
+//            .data
+//            ?.producto
+//            ?.data
+//            ?.attributes?.toDetailProduct()
+//    }
+override suspend fun getProduct(code: String): ProductDetail? {
+//    Log.e("code id", code)
+    return apolloClient
+        .query(ProductQuery(code))
+        .execute()
+        .data
+        ?.producto
+        ?.data
+        ?.let { product ->
+            product.id?.let { product.attributes?.toDetailProduct(it) }
+        }
+}
 
     override suspend fun getCategories(): List<Categories> {
         return apolloClient

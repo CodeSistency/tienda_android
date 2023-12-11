@@ -1,6 +1,7 @@
 package com.plcoding.graphqlcountriesapp.domain.model.products
 
 data class ProductDetail(
+    val id: String,
     val titulo: String,
     val descripcion:  String,
     val destacado: Boolean? = false,

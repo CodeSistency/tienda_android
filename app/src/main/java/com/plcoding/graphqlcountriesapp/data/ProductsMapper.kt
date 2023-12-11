@@ -8,8 +8,9 @@ import com.plcoding.graphqlcountriesapp.domain.model.products.ProductDetail
 import com.plcoding.graphqlcountriesapp.domain.model.products.Talla
 
 
-fun ProductQuery.Attributes.toDetailProduct(): ProductDetail {
+fun ProductQuery.Attributes.toDetailProduct(id: String): ProductDetail {
     return ProductDetail(
+        id = id,
         titulo = titulo ?: "",
         descripcion = description ?: "",
         destacado = destacado ?: false,
@@ -32,8 +33,9 @@ fun ProductQuery.Attributes.toDetailProduct(): ProductDetail {
     )
 }
 
-fun ProductListQuery.Attributes.toProduct(): Product {
+fun ProductListQuery.Attributes.toProduct(id: String): Product {
     return Product(
+        id = id,
         titulo = titulo,
         precio = precio,
         descuento = descuento,

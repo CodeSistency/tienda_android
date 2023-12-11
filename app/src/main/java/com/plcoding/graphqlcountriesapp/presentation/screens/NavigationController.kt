@@ -5,6 +5,7 @@ import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
 import androidx.navigation.compose.rememberNavController
 import com.plcoding.graphqlcountriesapp.presentation.ProductsViewModel
+import com.plcoding.graphqlcountriesapp.presentation.screens.detail.ProductDetailComposable
 import com.plcoding.graphqlcountriesapp.presentation.screens.home.Home
 
 @Composable
@@ -13,6 +14,9 @@ fun NavigationController(viewModel: ProductsViewModel) {
 
     NavHost(navController = navController, startDestination = "home") {
         composable("home") { Home(navController, viewModel) }
+        composable("product/{productId}") { backStackEntry ->
+            ProductDetailComposable(navController, backStackEntry.arguments?.getString("productId"), viewModel)
+        }
 
         /*...*/
     }

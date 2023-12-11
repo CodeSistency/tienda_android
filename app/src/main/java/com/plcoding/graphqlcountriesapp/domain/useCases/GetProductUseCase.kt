@@ -8,6 +8,7 @@ class GetProductUseCase(
    private val productClient: ProductClient
 ) {
     suspend fun execute(code: String): ProductDetail? {
+        Log.e("id useCase", code.toString())
         Log.e("producto", productClient.getProduct(code).toString())
         return productClient.getProduct(code)
     }

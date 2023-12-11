@@ -52,6 +52,13 @@ class ProductsViewModel @Inject constructor(
                 productos = getProductsUseCase.execute(),
                 isLoading = false
             ) }
+//            _stateProduct.update { it.copy(
+//                isLoading = true
+//            ) }
+//            _stateProduct.update { it.copy(
+//                producto = getProductUseCase.execute("10"),
+//                isLoading = false
+//            ) }
             _stateCategories.update { it.copy(
                 isLoading = true
             ) }
@@ -74,6 +81,16 @@ class ProductsViewModel @Inject constructor(
                 isLoading = false
             ) }
         }
+    }
+
+    suspend fun getProductDetail(id: String){
+        _stateProduct.update { it.copy(
+            isLoading = true
+        ) }
+        _stateProduct.update { it.copy(
+            producto = getProductUseCase.execute(id),
+            isLoading = false
+        ) }
     }
         data class ProductosState(
             val productos: List<Product>? = emptyList(),
