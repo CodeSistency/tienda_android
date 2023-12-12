@@ -1,4 +1,42 @@
-query Product($code: ID!){
+#query ProductDetailGl($code: ID!){
+#    producto(id: $code){
+#        data{
+#            id
+#            attributes{
+#                titulo
+#                description
+#                precio
+#                categoria
+#                destacado
+#                imgPrincipal{
+#                    data{
+#                        attributes{
+#                            url
+#                        }
+#                    }
+#                }
+#                imgs{
+#                    data{
+#                        attributes{
+#                            url
+#                        }
+#                    }
+#                }
+#                tallas{
+#                    id
+#                    talla
+#                    color{
+#                        color
+#                        stock
+#                        color_escrito
+#                    }
+#                }
+#            }
+#        }
+#    }
+#}
+
+query ProductDetailGl($code: ID!){
     producto(id: $code){
         data{
             id
@@ -8,6 +46,7 @@ query Product($code: ID!){
                 precio
                 categoria
                 destacado
+
                 imgPrincipal{
                     data{
                         attributes{

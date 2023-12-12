@@ -17,8 +17,8 @@ fun ProductDetailComposable(
 ) {
     LaunchedEffect(key1 = true, block = {
         if (string != null) {
-//            viewModel.getProductDetail(string)
-            Log.e("id", string)
+            viewModel.getProductDetail(string)
+            Log.e("id Composable", string)
         }
     })
 

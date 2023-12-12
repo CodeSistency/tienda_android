@@ -1,14 +1,14 @@
 package com.plcoding.graphqlcountriesapp.data
 
 import com.plcoding.ProductListQuery
-import com.plcoding.ProductQuery
+import com.plcoding.ProductDetailGlQuery
 import com.plcoding.graphqlcountriesapp.domain.model.products.Color
 import com.plcoding.graphqlcountriesapp.domain.model.products.Product
 import com.plcoding.graphqlcountriesapp.domain.model.products.ProductDetail
 import com.plcoding.graphqlcountriesapp.domain.model.products.Talla
 
 
-fun ProductQuery.Attributes.toDetailProduct(id: String): ProductDetail {
+fun ProductDetailGlQuery.Attributes.toDetailProduct(id: String): ProductDetail {
     return ProductDetail(
         id = id,
         titulo = titulo ?: "",

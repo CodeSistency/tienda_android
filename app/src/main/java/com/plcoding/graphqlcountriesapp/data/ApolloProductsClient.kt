@@ -4,7 +4,7 @@ import android.util.Log
 import com.apollographql.apollo3.ApolloClient
 import com.plcoding.CategoryListQuery
 import com.plcoding.ProductListQuery
-import com.plcoding.ProductQuery
+import com.plcoding.ProductDetailGlQuery
 import com.plcoding.SectionListQuery
 import com.plcoding.SliderListQuery
 
@@ -41,16 +41,19 @@ class ApolloProductsClient(
 //            ?.attributes?.toDetailProduct()
 //    }
 override suspend fun getProduct(code: String): ProductDetail? {
-//    Log.e("code id", code)
+    Log.e("id in getProduct", code)
+    Log.e("query", ProductDetailGlQuery.toString())
     return apolloClient
-        .query(ProductQuery(code))
+        .query(ProductDetailGlQuery(code))
         .execute()
         .data
         ?.producto
         ?.data
-        ?.let { product ->
-            product.id?.let { product.attributes?.toDetailProduct(it) }
-        }
+        ?.attributes?.toDetailProduct(code)
+//        ?.let { product ->
+//            Log.e("id test", product.id?: "no hay id")
+//            product.id?.let { product.attributes?.toDetailProduct(it) }
+//        }
 }
 
     override suspend fun getCategories(): List<Categories> {
