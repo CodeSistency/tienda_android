@@ -5,6 +5,8 @@ import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
 import androidx.navigation.compose.rememberNavController
 import com.plcoding.graphqlcountriesapp.presentation.ProductsViewModel
+import com.plcoding.graphqlcountriesapp.presentation.screens.cart.Cart
+import com.plcoding.graphqlcountriesapp.presentation.screens.confirmation.Confirmation
 import com.plcoding.graphqlcountriesapp.presentation.screens.detail.ProductDetailComposable
 import com.plcoding.graphqlcountriesapp.presentation.screens.home.Home
 
@@ -17,6 +19,10 @@ fun NavigationController(viewModel: ProductsViewModel) {
         composable("product/{productId}") { backStackEntry ->
             ProductDetailComposable(navController, backStackEntry.arguments?.getString("productId"), viewModel)
         }
+        composable("cart") { Cart(navController, viewModel) }
+        composable("confirmation") { Confirmation(navController, viewModel) }
+
+
 
         /*...*/
     }

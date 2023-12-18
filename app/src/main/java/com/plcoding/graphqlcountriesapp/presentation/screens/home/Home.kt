@@ -5,12 +5,21 @@ import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
+import androidx.compose.foundation.layout.PaddingValues
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.lazy.LazyColumn
+import androidx.compose.foundation.lazy.grid.GridCells
+import androidx.compose.foundation.lazy.grid.GridItemSpan
+import androidx.compose.foundation.lazy.grid.LazyVerticalGrid
+import androidx.compose.foundation.lazy.grid.items
 import androidx.compose.foundation.lazy.rememberLazyListState
+import androidx.compose.foundation.lazy.staggeredgrid.LazyVerticalStaggeredGrid
+import androidx.compose.foundation.lazy.staggeredgrid.StaggeredGridCells
+import androidx.compose.foundation.lazy.staggeredgrid.StaggeredGridItemSpan
+import androidx.compose.foundation.lazy.staggeredgrid.items
 import androidx.compose.foundation.rememberScrollState
 import androidx.compose.foundation.verticalScroll
 import androidx.compose.material.Icon
@@ -35,6 +44,7 @@ import com.plcoding.graphqlcountriesapp.R
 @Composable
 fun Home(navController: NavHostController, viewModel: ProductsViewModel) {
     val listOfProducts = viewModel.stateProducts.collectAsState()
+
     Scaffold(
         topBar = {
             TopBarContent(navController)
@@ -57,11 +67,41 @@ fun Home(navController: NavHostController, viewModel: ProductsViewModel) {
 //                }
 ////                SubList(listOfProducts.value.productos, navController)
 //            }
-            Column {
-                Slider(viewModel = viewModel)
-                Categories(viewModel = viewModel)
-                ListProducts(viewModel = viewModel, navController = navController)
+//            Column {
+//                Slider(viewModel = viewModel)
+//                Categories(viewModel = viewModel)
+//                ListProducts(viewModel = viewModel, navController = navController)
+//            }
+            LazyVerticalStaggeredGrid(
+                columns = StaggeredGridCells.Fixed(2),
+                contentPadding = PaddingValues(16.dp),
+                horizontalArrangement = Arrangement.spacedBy(16.dp),
+                verticalItemSpacing = 15.dp
+            ){
+                item(span =  StaggeredGridItemSpan.FullLine){
+                    Slider(viewModel = viewModel)
+                }
+                item(span =  StaggeredGridItemSpan.FullLine ){
+                    Categories(viewModel = viewModel)
+
+                }
+                items(listOfProducts.value.productos ?: emptyList()){
+                    Item(item = it, navController = navController)
+                }
             }
+
+//            LazyVerticalGrid(GridCells.Fixed(2)) {
+//                item(span = { GridItemSpan(2) }){
+//             Slider(viewModel = viewModel)
+//            }
+//                item(span = { GridItemSpan(2) }){
+//                    Categories(viewModel = viewModel)
+//
+//            }
+//            items(listOfProducts.value.productos ?: emptyList()){
+//                   Item(item = it, navController = navController)
+//            }
+//            }
         }
     }
 }

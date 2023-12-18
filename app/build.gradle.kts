@@ -5,6 +5,8 @@ plugins {
     kotlin("kapt")
     id("dagger.hilt.android.plugin")
     id ("com.google.devtools.ksp")
+//    kotlin("jvm") version "1.9.21"
+    kotlin("plugin.serialization") version "1.9.21"
 }
 
 apollo {
@@ -92,4 +94,14 @@ dependencies {
 
     //Fonts
     implementation("androidx.compose.ui:ui-text-google-fonts:1.5.4")
+
+    //Format HTML
+    implementation("org.jsoup:jsoup:1.14.3")
+
+    //Serialization
+//    implementation("org.jetbrains.kotlinx:kotlinx-serialization-json:1.3.0")
+    implementation("org.jetbrains.kotlinx:kotlinx-serialization-json:1.6.0")
+
+
+
 }
