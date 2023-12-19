@@ -44,6 +44,7 @@ import com.bumptech.glide.integration.compose.GlideImage
 import com.plcoding.graphqlcountriesapp.R
 import com.plcoding.graphqlcountriesapp.domain.model.products.ProductCart
 import com.plcoding.graphqlcountriesapp.presentation.ProductsViewModel
+import com.plcoding.graphqlcountriesapp.presentation.common.GoBack
 import com.plcoding.graphqlcountriesapp.utils.getCartFromSharedPreferences
 import com.plcoding.graphqlcountriesapp.utils.saveCartToSharedPreferences
 
@@ -69,15 +70,22 @@ fun Cart(navController: NavHostController, viewModel: ProductsViewModel) {
     }
     Scaffold(
         topBar = {
-            TopBarCart(navController)
+//            TopBarCart(navController)
+                 GoBack(navController = navController, title = "Carrito", content = {})
         },
         bottomBar = {
             BottomBarCart(navController)
         }
     ) {
-        Column {
+        Column(
+            modifier = Modifier.padding(10.dp)
+        ) {
             Text(text = "Carrito", fontSize = 22.sp)
-            Text(text = "items ${cartItems.size}")
+            Row {
+                Text(text = "items ${cartItems.size}")
+                Text(text = "Total:")
+            }
+
             Divider(
                 modifier = Modifier.fillMaxWidth()
             )
@@ -174,16 +182,16 @@ fun QuantityCounter(cartItem: ProductCart, onQuantityChanged: (Int) -> Unit) {
     }
 }
 
-@Composable
-fun TopBarCart(navController: NavHostController) {
-    Row(
-        modifier = Modifier.fillMaxWidth()
-    ) {
-       IconButton(onClick = { }) {
-           Icon(imageVector = Icons.Default.ArrowBack, contentDescription = null)
-       }
-    }
-}
+//@Composable
+//fun TopBarCart(navController: NavHostController) {
+//    Row(
+//        modifier = Modifier.fillMaxWidth()
+//    ) {
+//       IconButton(onClick = { }) {
+//           Icon(imageVector = Icons.Default.ArrowBack, contentDescription = null)
+//       }
+//    }
+//}
 
 @Composable
 fun BottomBarCart(navController: NavHostController) {
@@ -195,10 +203,12 @@ fun BottomBarCart(navController: NavHostController) {
             contentColor = Color.White,
             backgroundColor = Color.Black
         ),
-        modifier = Modifier.fillMaxWidth()
+        modifier = Modifier.fillMaxWidth().padding(10.dp)
     ) {
         Row(
-            verticalAlignment = Alignment.CenterVertically
+            verticalAlignment = Alignment.CenterVertically,
+            modifier = Modifier.padding(vertical = 10.dp)
+
         ) {
             Text(text = "Comprar", color = Color.White)
             Spacer(modifier = Modifier.width(3.dp))

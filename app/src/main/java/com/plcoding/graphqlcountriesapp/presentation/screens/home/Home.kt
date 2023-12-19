@@ -159,7 +159,7 @@ fun TopBarContent(navController: NavHostController) {
                     .fillMaxWidth()
                     .padding(5.dp)
             ) {
-                IconButton(onClick = { /*TODO*/ }) {
+                IconButton(onClick = { navController.navigate("cart") }) {
                     Icon(painterResource(id = R.drawable.ic_cart), contentDescription = null)
                 }
                 Text(text = "Logo")

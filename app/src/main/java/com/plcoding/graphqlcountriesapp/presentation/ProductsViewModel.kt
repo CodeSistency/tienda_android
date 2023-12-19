@@ -113,4 +113,21 @@ class ProductsViewModel @Inject constructor(
             val isLoading: Boolean = false
         )
 
+    fun sendMessageToWhatsApp(number: String, message: String) {
+        val intent = Intent(Intent.ACTION_VIEW)
+        intent.data = Uri.parse("https://api.whatsapp.com/send?phone=$number&text=${Uri.encode(message)}")
+        intent.setPackage("com.whatsapp")
+
+        if (intent.resolveActivity(packageManager) != null) {
+            // Open WhatsApp
+            startActivity(intent)
+        } else {
+            // WhatsApp not installed. Handle the case as required.
+            // Maybe redirect user to play store to install WhatsApp
+            val playStoreIntent = Intent(Intent.ACTION_VIEW)
+            playStoreIntent.data = Uri.parse("https://play.google.com/store/apps/details?id=com.whatsapp")
+            startActivity(playStoreIntent)
+        }
+    }
+
 }
