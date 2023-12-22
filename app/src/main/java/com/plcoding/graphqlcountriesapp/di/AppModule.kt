@@ -7,6 +7,7 @@ import com.plcoding.graphqlcountriesapp.data.ApolloProductsClient
 import com.plcoding.graphqlcountriesapp.domain.ProductClient
 import com.plcoding.graphqlcountriesapp.domain.useCases.GetCategoriesUseCase
 import com.plcoding.graphqlcountriesapp.domain.useCases.GetProductUseCase
+import com.plcoding.graphqlcountriesapp.domain.useCases.GetProductsByCategoriesUseCase
 import com.plcoding.graphqlcountriesapp.domain.useCases.GetProductsUseCase
 import com.plcoding.graphqlcountriesapp.domain.useCases.GetSectionsUseCase
 import com.plcoding.graphqlcountriesapp.domain.useCases.GetSliderUseCase
@@ -66,6 +67,11 @@ object AppModule {
     }
     @Provides
     @Singleton
+    fun provideGetProductsByCategoriesUseCase(productClient: ProductClient): GetProductsByCategoriesUseCase {
+        return GetProductsByCategoriesUseCase(productClient)
+    }
+    @Provides
+    @Singleton
     fun provideGetProductUseCase(productClient: ProductClient): GetProductUseCase {
         return GetProductUseCase(productClient)
     }
@@ -84,4 +90,5 @@ object AppModule {
     fun provideGetSectionsUseCase(productClient: ProductClient): GetSectionsUseCase {
         return GetSectionsUseCase(productClient)
     }
+
 }

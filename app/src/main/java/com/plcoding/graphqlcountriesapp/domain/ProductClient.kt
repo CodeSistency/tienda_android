@@ -18,5 +18,6 @@ interface ProductClient {
 
     suspend fun getSlider(): List<Slider>
 
+    suspend fun getProductsByCategories(category: String): List<Product>
 
 }

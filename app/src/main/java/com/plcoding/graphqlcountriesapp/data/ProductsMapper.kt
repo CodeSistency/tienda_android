@@ -1,5 +1,6 @@
 package com.plcoding.graphqlcountriesapp.data
 
+import com.plcoding.CategoryProductsQuery
 import com.plcoding.ProductListQuery
 import com.plcoding.ProductDetailGlQuery
 import com.plcoding.graphqlcountriesapp.domain.model.products.Color
@@ -34,6 +35,17 @@ fun ProductDetailGlQuery.Attributes.toDetailProduct(id: String): ProductDetail {
 }
 
 fun ProductListQuery.Attributes.toProduct(id: String): Product {
+    return Product(
+        id = id,
+        titulo = titulo,
+        precio = precio,
+        descuento = descuento,
+        destacado = destacado ?: false,
+        imgPincipal = imgPrincipal?.data?.attributes?.url ?: "",
+    )
+}
+
+fun CategoryProductsQuery.Attributes.toProduct(id: String): Product {
     return Product(
         id = id,
         titulo = titulo,

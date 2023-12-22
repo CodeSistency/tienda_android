@@ -28,7 +28,7 @@ fun GoBack(
         IconButton(onClick = { navController.popBackStack()}) {
             Icon(imageVector = Icons.Default.ArrowBack, contentDescription = null)
         }
-        Text(text = title),
+        Text(text = title)
         content()
     }
 }

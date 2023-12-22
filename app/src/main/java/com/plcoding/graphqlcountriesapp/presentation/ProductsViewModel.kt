@@ -1,5 +1,13 @@
 package com.plcoding.graphqlcountriesapp.presentation
 
+import android.annotation.SuppressLint
+import android.content.ActivityNotFoundException
+import android.content.Context
+import android.content.Intent
+import android.content.pm.PackageManager
+import android.net.Uri
+import android.util.Log
+import androidx.core.content.ContextCompat.startActivity
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.plcoding.graphqlcountriesapp.domain.model.categories.Categories
@@ -9,6 +17,7 @@ import com.plcoding.graphqlcountriesapp.domain.model.sections.Sections
 import com.plcoding.graphqlcountriesapp.domain.model.slider.Slider
 import com.plcoding.graphqlcountriesapp.domain.useCases.GetCategoriesUseCase
 import com.plcoding.graphqlcountriesapp.domain.useCases.GetProductUseCase
+import com.plcoding.graphqlcountriesapp.domain.useCases.GetProductsByCategoriesUseCase
 import com.plcoding.graphqlcountriesapp.domain.useCases.GetProductsUseCase
 import com.plcoding.graphqlcountriesapp.domain.useCases.GetSectionsUseCase
 import com.plcoding.graphqlcountriesapp.domain.useCases.GetSliderUseCase
@@ -25,7 +34,8 @@ class ProductsViewModel @Inject constructor(
     val getProductUseCase: GetProductUseCase,
     val getCategoriesUseCase: GetCategoriesUseCase,
     val getSectionsUseCase: GetSectionsUseCase,
-    val getSliderUseCase: GetSliderUseCase
+    val getSliderUseCase: GetSliderUseCase,
+    val getProductsByCategoriesUseCase: GetProductsByCategoriesUseCase,
 ): ViewModel() {
 
     private val _stateProducts = MutableStateFlow(ProductosState())
@@ -42,6 +52,9 @@ class ProductsViewModel @Inject constructor(
 
     private val _stateCategories = MutableStateFlow(CategoriesState())
     val stateCategories = _stateCategories.asStateFlow()
+
+    private val _stateProductsByCategory = MutableStateFlow(ProductosState())
+    val stateProductsByCategory = _stateProducts.asStateFlow()
 
     init {
         viewModelScope.launch {
@@ -80,6 +93,7 @@ class ProductsViewModel @Inject constructor(
                 sections = getSectionsUseCase.execute(),
                 isLoading = false
             ) }
+
         }
     }
 
@@ -89,6 +103,16 @@ class ProductsViewModel @Inject constructor(
         ) }
         _stateProduct.update { it.copy(
             producto = getProductUseCase.execute(id),
+            isLoading = false
+        ) }
+    }
+
+    suspend fun getProductsByCategory(category: String){
+        _stateProductsByCategory.update { it.copy(
+            isLoading = true
+        ) }
+        _stateProductsByCategory.update { it.copy(
+            productos = getProductsByCategoriesUseCase.execute(category),
             isLoading = false
         ) }
     }
@@ -112,22 +136,27 @@ class ProductsViewModel @Inject constructor(
             val sections: List<Sections>? = emptyList(),
             val isLoading: Boolean = false
         )
+        data class ProductosByCategoryState(
+            val productos: List<Product>? = emptyList(),
+            val isLoading: Boolean = false
+        )
 
-    fun sendMessageToWhatsApp(number: String, message: String) {
-        val intent = Intent(Intent.ACTION_VIEW)
-        intent.data = Uri.parse("https://api.whatsapp.com/send?phone=$number&text=${Uri.encode(message)}")
-        intent.setPackage("com.whatsapp")
+    fun sendMessageToWhatsApp(context: Context, number: String, message: String) {
+        val url =
+            "https://api.whatsapp.com/send?phone=$number&text=${Uri.encode(message)}"
 
-        if (intent.resolveActivity(packageManager) != null) {
-            // Open WhatsApp
-            startActivity(intent)
-        } else {
-            // WhatsApp not installed. Handle the case as required.
-            // Maybe redirect user to play store to install WhatsApp
+        val intent = Intent(Intent.ACTION_VIEW).apply {
+            this.data = Uri.parse(url)
+            this.`package` = "com.whatsapp"
+        }
+
+        try {
+            context.startActivity(intent)
+        } catch (ex: ActivityNotFoundException) {
+            //whatsapp not installled
             val playStoreIntent = Intent(Intent.ACTION_VIEW)
             playStoreIntent.data = Uri.parse("https://play.google.com/store/apps/details?id=com.whatsapp")
-            startActivity(playStoreIntent)
+            context.startActivity(playStoreIntent)
         }
     }
-
 }

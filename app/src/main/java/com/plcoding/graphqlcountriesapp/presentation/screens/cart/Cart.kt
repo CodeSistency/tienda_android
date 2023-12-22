@@ -112,8 +112,8 @@ fun ListCart(cartItems: List<ProductCart>, onQuantityChanged: (Int, ProductCart)
 fun CartItem(cartItem: ProductCart, onQuantityChanged: (Int) -> Unit) {
     Card(
         modifier = Modifier
-            .fillMaxWidth()
-            .padding(16.dp),
+            .fillMaxWidth(),
+//            .padding(16.dp),
         elevation = 8.dp
     ) {
         Row(
